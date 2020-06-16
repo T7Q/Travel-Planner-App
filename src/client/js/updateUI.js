@@ -1,6 +1,3 @@
-const updateUI = (data) => {
-	console.log("updateUI function")
-	// document.getElementById('dest_city').innerHTML = data.city;
-  }
-
-export { updateUI }
+export const updateUI = (trip) => {
+    document.getElementById('output_img2').src = trip.trip.imgURL;
+}

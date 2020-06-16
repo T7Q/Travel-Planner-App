@@ -1,7 +1,5 @@
-// import { postFormData } from './js/postData'
 import { handleSubmit } from './js/formHandler'
-// import { updateUI } from './js/updateUI'
-// import { updateUI } from './js/updateUI'
+import { updateUI } from './js/updateUI'
 
 import './styles/style.scss'
 
@@ -12,10 +10,9 @@ import tw from './img/twitter.png'
 import rain from './img/rain.png'
 
 
-// window.addEventListener('DOMContentLoaded', test);
+window.addEventListener('click', handleSubmit);
 
 export {
     handleSubmit,
-    // postFormData,
-    // updateUI
+    updateUI
 }

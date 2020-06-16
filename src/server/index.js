@@ -2,6 +2,7 @@ var path = require('path');
 const express = require('express');
 var bodyParser = require('body-parser');
 const cors = require('cors');
+const fetch = require('node-fetch');
 let trip = {};
 
 // Start up an instance of app
@@ -22,32 +23,22 @@ app.listen(3300, function () {
     console.log('Example app listening on port 3300!')
 })
 
-// set dotenv
+// set dotenv to get API keys from .env
 const dotenv = require('dotenv');
 dotenv.config();
 
-console.log(`Your API key is ${process.env.API_KEY_PIX}`);
 
-// Get city image through Pixabay API
-const pixKEY = process.env.API_KEY_PIX;
-// Pixabay API URL
-const pixURL = 'https://pixabay.com/api/?';
+// Function that sends a request to Pixabay server using pixKEY (Pixabay API key)
 
-// Get wan image from Pixabay
 const getImage = async (pixKEY) => {
-    console.log("fetching pic");
-    console.log("KEY "+ pixKEY);
-    console.log("city " + trip.city);
-    console.log("https://pixabay.com/api/?image_type=photo&key=" + pixKEY + "&q=$" + trip.city);
-    // const req = await fetch(`https://pixabay.com/api/?image_type=photo&key=${pixKEY}&q=${trip.city}`);
-    const req = await fetch("https://pixabay.com/api/?image_type=photo&key=" + pixKEY + "&q=$" + trip.city);
+    const response = await fetch(`https://pixabay.com/api/?image_type=photo&key=${pixKEY}&q=${trip.city}`);
     try {
-        console.log("sending img to client side");
-        const res = await req.json();
-        trip.imgURL = "HELLO";
-        // trip.imgURL = res.hits[0].webformatURL;
+        const data = await response.json();
+        console.log("got response");
+        trip.imgURL = data.hits[0].webformatURL;
+        console.log(trip.imgURL);
     } catch (error) {
-        trip.imgURL = "ooops, no image was fetched";
+        trip.imgURL = "https://cdn.pixabay.com/photo/2013/02/21/19/06/beach-84533_1280.jpg";
     }
 }
 
@@ -67,7 +58,7 @@ app.post('/trip', async(req, res) => {
     try {
         const city = req.body.city;
         trip.city = city;
-        await getImage(pixKEY);
+        await getImage(process.env.API_KEY_PIX);
         res.json({
             success: true, 
             trip: trip
@@ -77,3 +68,9 @@ app.post('/trip', async(req, res) => {
     }
      
 })
+
+// app.get('/trip', function (req, res) {
+//     // res.sendfile("server is running")
+//     res.sendFile("sending response")
+//     // res.sendFile(path.resolve('src/client/views/index.html'))
+// })
