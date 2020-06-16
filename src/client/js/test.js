@@ -10,7 +10,7 @@ const baseURL = 'http://api.openweathermap.org/data/2.5/weather?';
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
-function performeAction() {
+function handSumbit() {
 	console.log("click");
   // Store values entered into the form
   let zip = document.getElementById('zip').value;
