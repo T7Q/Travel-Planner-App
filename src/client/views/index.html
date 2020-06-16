@@ -15,7 +15,7 @@
         <!-- <form id="form_input" onsubmit="return Client.handleSubmit(event)"> -->
         <form id="form_input">
           <input type="text" id="city" placeholder="Enter city here">
-          <input type="date" id="datemin" name="datemin" min="2015-01-02">
+          <input type="date" id="departure" name="datemin" min="2015-01-02">
           <button id="generate" type = "submit">show me the trip</button>
         </form>
       </div>
@@ -27,7 +27,7 @@
           </div>
           <div id = "output_text">
             <div id = "city">
-              <h3 id = "dest_city">Paris,France</h3>
+              <h3><span id="dest_city"></span><span id="dest_country"></span></h3>
             </div>
             <div id = "departure"><p>Departure in 7 days on 15.07.2020</p></div> 
             <div id = "weather_title"><p>3-days weather forcast</p></div>
@@ -50,11 +50,11 @@
     </div>
     <footer>
       <div id="copy"><p>Copyright © 2020 TKuumola. All Rights Reserved.</p></div>
-      <div class="social">
+      <!-- <div class="social">
           <a href="#" ><img src="./img/facebook.png" alt="instagram" class="social-icon"></a>
           <a href="#" ><img src="./img/linkedin.png" alt="twitter" class="social-icon"></a>
           <a href="#" ><img src="./img/twitter.png" alt="linkedin" class="social-icon"></a>
-      </div>
+      </div> -->
     </footer>
     <!-- <script>
       // Check that service workers are supported

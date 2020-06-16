@@ -27,6 +27,24 @@ app.listen(3300, function () {
 const dotenv = require('dotenv');
 dotenv.config();
 
+// FUNCTIONS
+
+// Function that sends a request to Geonames server to fetch country based on city
+
+const getCountry = async (geonamesKEY) => {
+    console.log(`http://api.geonames.org/searchJSON?username=${geonamesKEY}&q=${trip.city}`);
+    console.log("city"+ trip.city);
+    const response = await fetch(`http://api.geonames.org/searchJSON?username=${geonamesKEY}&q=${trip.city}&maxRows=1`);
+    // const response = await fetch(`https://pixabay.com/api/?image_type=photo&key=${pixKEY}&q=${trip.city}`);
+    try {
+        const data = await response.json();
+        trip.country = data.geonames[0].countryName;
+    } catch (error) {
+        trip.country = "ooops, country does not exist";
+        cosole.log("errore");
+        // trip.imgURL = "https://cdn.pixabay.com/photo/2013/02/21/19/06/beach-84533_1280.jpg";
+    }
+}
 
 // Function that sends a request to Pixabay server using pixKEY (Pixabay API key)
 
@@ -34,13 +52,13 @@ const getImage = async (pixKEY) => {
     const response = await fetch(`https://pixabay.com/api/?image_type=photo&key=${pixKEY}&q=${trip.city}`);
     try {
         const data = await response.json();
-        console.log("got response");
         trip.imgURL = data.hits[0].webformatURL;
-        console.log(trip.imgURL);
     } catch (error) {
         trip.imgURL = "https://cdn.pixabay.com/photo/2013/02/21/19/06/beach-84533_1280.jpg";
     }
 }
+
+
 
 
 // ENDPOINTS
@@ -58,7 +76,9 @@ app.post('/trip', async(req, res) => {
     try {
         const city = req.body.city;
         trip.city = city;
-        await getImage(process.env.API_KEY_PIX);
+        await getImage(process.env.API_KEY_PIXABAY);
+        await getCountry(process.env.API_KEY_GEONAMES);
+        // await getImage(process.env.API_KEY_WEATHERBIT);
         res.json({
             success: true, 
             trip: trip
@@ -68,9 +88,3 @@ app.post('/trip', async(req, res) => {
     }
      
 })
-
-// app.get('/trip', function (req, res) {
-//     // res.sendfile("server is running")
-//     res.sendFile("sending response")
-//     // res.sendFile(path.resolve('src/client/views/index.html'))
-// })

@@ -1,4 +1,4 @@
-import { handleSubmit } from './js/formHandler'
+import { handleSubmit } from './js/app'
 import { updateUI } from './js/updateUI'
 
 import './styles/style.scss'
@@ -9,8 +9,8 @@ import fb from './img/facebook.png'
 import tw from './img/twitter.png'
 import rain from './img/rain.png'
 
-
-window.addEventListener('click', handleSubmit);
+document.getElementById('generate').addEventListener('click', handleSubmit)
+// window.addEventListener('click', handleSubmit);
 
 export {
     handleSubmit,
