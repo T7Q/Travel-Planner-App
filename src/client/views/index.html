@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel planner</title>
-    <!-- <link rel="stylesheet" href ="../styles/style.css"> -->
   </head>
   <body>
     <div id="container">
@@ -19,25 +18,22 @@
           <button id="generate" type = "submit">show me the trip</button>
         </form>
       </div>
+      <div id="banner">
+      </div>
       <div id ="section2">
-        <div class = "sec2_title"><h2>My trip</h2></div>
+        <!-- <div class = "sec2_title"><h2>My trip</h2></div> -->
+        <div id = "city">
+          <h2><span id="dest_city"></span><span id="dest_country"></span></h2>
+        </div>
         <div id="output_card">
           <div id="output_img">
-            <img src="./img/polynesia.jpg" alt="city" id="output_img2">
+            <img src="" alt="city" id="output_img2">
           </div>
           <div id = "output_text">
-            <div id = "city">
-              <h3><span id="dest_city"></span><span id="dest_country"></span></h3>
-            </div>
             <div><p ><span id="depart_info"></span></p></div> 
             <div id="weather_title"><p><span id="day_temp"></span></p></div>
             <div id="forcast">
-              <!-- <div class="">
-                <p><span id="day_temp"></span></p>  
-              </div> -->
               <div id="forcast_details">
-                <p><span id="day_desc"></span></p>
-                <img src="" alt="weather_icon" id="weather_icon">
               </div>
           </div>
         </div>

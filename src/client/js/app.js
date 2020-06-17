@@ -17,20 +17,17 @@ const getTripInfo = async (url = '', data = {})=>{
     }
 }
 
+
+// function triggered by eventListener (button click), takes user input and checks user input
 export function handleSubmit(event) {
     event.preventDefault()
-
-    console.log("**** formHandler function *** ");
 
     // save user input to formText
     let destination = document.getElementById('city').value
     let date = document.getElementById('departure').value;
-    console.log("object" + document.getElementById('departure').value);
-    console.log("date: " + date);
     
     // regex for non-empty string
     const re = new RegExp(/^(?!\s*$).+/);
-    // const re = new RegExp(/(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/);
 
     // check if entered data non-empty string and proceed, else show alert
     if (re.test(destination) && re.test(date)){
@@ -38,11 +35,10 @@ export function handleSubmit(event) {
             city: destination,
             departure: date
         }
-        console.log("valid");
+        // function to post data to the server
         getTripInfo('http://localhost:3300/trip', data)
         .then(function(res) {
-            //update UI according to 
-            // console.log("response from server" + res);
+            //update UI according to server response and data received from user
             Client.updateUI(res, data);
         })
     }

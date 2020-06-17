@@ -46,7 +46,6 @@ header{
 	background-color: #0AAFF1;
 	text-align: center;
 	color: white;
-
 }
 
 #main {
@@ -85,6 +84,10 @@ p {
 	color: #0444BF;
 }
 
+span {
+	font-size: 14px;
+}
+
 #section1 {
 	display: flex;
 	flex-direction: column;
@@ -93,10 +96,9 @@ p {
 	align-self: center;
 	width: 300px;
 	background-color:  #eeebe5;
-	/* padding: 10px 10px 10px 10px; */
 	margin-left: auto;
 	margin-right: auto;
-	margin-bottom: 20px
+	// margin-bottom: 20px
 }
 p {
 	font-size: 2vw;
@@ -140,8 +142,15 @@ button:hover {
 	background-color: #0AAFF1;
 }
 
+#banner{
+	background-image: url("https://pixabay.com/get/55e0d7424a55ae14f1dc8460c62f377a173cd9e34e507440772c7cd3954ccd_640.jpg");
+	background-repeat: no-repeat;
+	background-size: 300px;
+	background-position: center;
+	height: 250px;
+}
 #section2 {
-	display: flex;
+	display: none;
 	flex-direction: column;
 	width: 300px;
 	align-items: center;
@@ -150,7 +159,7 @@ button:hover {
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 50px;
-
+	margin-top: 20px;
 }
 #sec2_title {
 	padding: 0px 0px 20px 0px;
@@ -162,6 +171,8 @@ button:hover {
 	flex-direction: column;
 	width: 100%;
 	margin-bottom: 30px;
+	justify-content: space-evenly;
+	// align-items: center;
 }
 
 #output_img {
@@ -179,16 +190,28 @@ button:hover {
 #output_text {
 	text-align: center;
 	color: #0444BF;
+	align-items: center;
+	justify-content: space-evenly;
+	align-self: center;
 }
 
 #forcast {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-evenly;
+	align-items: center;
+}
+
+#depart_info {
+	color: #A79674;
 }
 
 #weather_title p{
 	font:bold;
+	color: #A79674;
+}
+
+#day_desc {
 	color: #A79674;
 }
 
@@ -217,24 +240,6 @@ footer p {
 	margin: auto;
 }
 
-.social {
-	width: 50%;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-evenly;
-	margin: auto;
-}
-.social-box {
-	padding: 0;
-	flex-direction: row;
-
-}
-
-.social-icon {
-	width: 30px;
-	margin-right: 0.5rem;
-}
-
 /* Medium Screens */
 @media (min-width: 600px) and (max-width:900px) {
 	#container {
@@ -250,6 +255,9 @@ footer p {
 		font-size: 22px;
 	}
 	p {
+		font-size: 18px;
+	}
+	span {
 		font-size: 18px;
 	}
 	#section1 {
@@ -272,9 +280,13 @@ footer p {
 	::placeholder {
 		color: #A79674;
 	}
-
+	#banner {
+		background-size: 450px auto;
+		height: 350px;
+	}
 	#section2 {
 		width: 600px;
+		margin-top: 30px;
 	}
 	#output_card {
 		flex-direction: row;
@@ -294,7 +306,7 @@ footer p {
 	}
 	#output_text {
 		flex: 50%;
-		text-align: left;
+		// text-align: left;
 		margin-top: 0;
 	}
 	#weather_title {
@@ -332,6 +344,9 @@ footer p {
 	p {
 		font-size: 20px;
 	}
+	span {
+		font-size: 20px;
+	}
 	#form_input {
 		flex-direction: row;
 	}
@@ -339,7 +354,13 @@ footer p {
 		width: 900px;
 		align-items: center;
 	}
+	#banner {
+		background-size: 450px auto;
+		height: 400px;
+		display:block;
+	}
 	#section2 {
+		margin-top: 20px;
 		width: 900px;
 	}
 	#form_input {
@@ -374,7 +395,7 @@ footer p {
 	}
 	#output_text {
 		flex: 50%;
-		text-align: left;
+		// text-align: left;
 		margin-top: 0;
 	}
 	#weather_title {
