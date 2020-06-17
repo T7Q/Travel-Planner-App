@@ -109,21 +109,18 @@ p {
 	flex-direction: column;
 	text-align: center;
 	justify-content: center;
-	/* padding: 5px 5px 5px 5px; */
 }
 
 input[type=text] {
 	border: none;
 	margin-bottom: 10px;
 	text-align: center;
-	/* padding: 5px 5px 5px 5px; */
 }
 input[type=date] {
 	border: none;
 	margin-bottom: 10px;
 	color: #A79674;
 	text-align: center;
-	/* padding: 5px 5px 5px 5px; */
 }
 ::placeholder {
 	color: #A79674;
@@ -274,6 +271,7 @@ footer p {
 	input[type=text] {
 		margin-bottom: 0;
 	}
+
 	input[type=date] {
 		margin-bottom: 0px;
 	}
@@ -372,12 +370,13 @@ footer p {
 	}
 	input[type=text] {
 		margin-bottom: 0;
+		background-color: white;
 	}
 	input[type=date] {
 		margin-bottom: 0px;
+		background-color: white;
 	}
 	::placeholder {
-		color: #A79674;
 		background-color: white;
 	}
 	#output_card {
