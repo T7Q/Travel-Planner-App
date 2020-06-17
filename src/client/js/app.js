@@ -37,7 +37,6 @@ export function handleSubmit(event) {
         getTripInfo('http://localhost:3300/trip', data)
         .then(function(res) {
             // If error occured, display error message
-            console.log(res.success)
             if (res.success == false){
                 alert("ERROR fetching your trip data. Check if input is correct")
             }
