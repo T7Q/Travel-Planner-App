@@ -14,9 +14,13 @@ Detailed project specifications available [here](https://review.udacity.com/#!/r
 5. Sass
 
 ## VIEW
-![Interface](../assets/Travel_planner1.png?raw=true)
+App interface for desktop
 
-![Interface](../assets/Travel_planner2.png?raw=true)
+![Interface](../assets/Travel_planner1.png?raw=true | width 100)
+
+
+
+![Interface](../assets/Travel_planner2.png?raw=true | width 100)
 
 ## Run locally
 * Sign up and get API keys from [Weatherbit](https://www.weatherbit.io/account/create), [Pixabay](https://pixabay.com/api/docs/) and user name from [GeoNames](http://www.geonames.org/export/web-services.html)
