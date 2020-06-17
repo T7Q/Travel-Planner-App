@@ -1,5 +1,5 @@
+// function to post request to the server
 const getTripInfo = async (url = '', data = {})=>{
-    console.log("post city info to server");
     const response = await fetch(url, {
         method: 'POST', 
         credentials: 'same-origin',
@@ -10,13 +10,11 @@ const getTripInfo = async (url = '', data = {})=>{
     });
     try {
         const data = await response.json();
-        // console.log("data from server: " + data);
         return data;
     } catch(error) {
-        console.log("ERROR getting the data from sever");
+        console.log("error", error);
     }
 }
-
 
 // function triggered by eventListener (button click), takes user input and checks user input
 export function handleSubmit(event) {
@@ -35,15 +33,21 @@ export function handleSubmit(event) {
             city: destination,
             departure: date
         }
-        // function to post data to the server
+        // function to post request to the server
         getTripInfo('http://localhost:3300/trip', data)
         .then(function(res) {
-            //update UI according to server response and data received from user
-            Client.updateUI(res, data);
+            // If error occured, display error message
+            console.log(res.success)
+            if (res.success == false){
+                alert("ERROR fetching your trip data. Check if input is correct")
+            }
+            // else update UI according to server response and data received from user
+            else {
+                Client.updateUI(res, data);
+            }
         })
     }
     else {
         alert("ERROR! Please enter the city and departure date")
-        console.log("invalid");
     }
 };
