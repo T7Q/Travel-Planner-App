@@ -13,6 +13,11 @@ Detailed project specifications available [here](https://review.udacity.com/#!/r
 4. HTML
 5. Sass
 
+## VIEW
+![Interface](../assets/Travel_planner1.png?raw=true)
+
+![Interface](../assets/Travel_planner2.png?raw=true)
+
 ## Run locally
 * Sign up and get API keys from [Weatherbit](https://www.weatherbit.io/account/create), [Pixabay](https://pixabay.com/api/docs/) and user name from [GeoNames](http://www.geonames.org/export/web-services.html)
 * git clone the repository and create a new ```.env``` file in the root of the project
