@@ -14,7 +14,7 @@ Detailed project specifications available [here](https://review.udacity.com/#!/r
 5. Sass
 
 ## Run locally
-* Sign up and get API keys from [Weatherbit](https://www.weatherbit.io/account/create), [Pixabay](https://pixabay.com/api/docs/) and user name from[GeoNames](http://www.geonames.org/export/web-services.html)
+* Sign up and get API keys from [Weatherbit](https://www.weatherbit.io/account/create), [Pixabay](https://pixabay.com/api/docs/) and user name from [GeoNames](http://www.geonames.org/export/web-services.html)
 * git clone the repository and create a new ```.env``` file in the root of the project
 * Fill the .env file with your API keys like this
   ```
