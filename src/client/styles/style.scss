@@ -39,7 +39,6 @@ html, body {
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
-	/* background-color: #eeebe5; */
 }
 
 header{
@@ -124,6 +123,7 @@ input[type=date] {
 }
 ::placeholder {
 	color: #A79674;
+	text-align: center;
 }
 
 button {
@@ -277,6 +277,7 @@ footer p {
 	}
 	::placeholder {
 		color: #A79674;
+		align-content: center;
 	}
 	#banner {
 		background-size: 450px auto;
