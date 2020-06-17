@@ -5,6 +5,20 @@ const cors = require('cors');
 const fetch = require('node-fetch');
 let trip = {};
 
+// Trip variable contains the following data
+// trip: {
+//     city: 'Rome', // user input
+//     departure: '20.06.2020', // user input
+//     country: 'Italy', // from GeoNames
+//     imgURL: 'https://city_image...' // form Pixabay
+//     diffDays: 2, // days to the trip (calculate value)
+//     departureInfo: 'Departure in 2 days on 20.06.2010', // calucated value
+//     tempMax: 20, // from Weatherbits
+//     tempMin: 15, // from Weatherbits
+//     icon: 'r01d.png', //icon code from Weatherbits (availalble only for 16 days)
+//     weatherDescription: 'Sunny', // from Weatherbits (awailable only for 16 days)
+// }
+
 // Start up an instance of app
 const app = express()
 
@@ -57,25 +71,19 @@ const getImage = async (pixKEY) => {
 // Function that sends a request to Pixabay server using pixKEY (Pixabay API key)
 
 const getWeather = async (weatherbitsKEY, url) => {
-    console.log(`${url}&key=${weatherbitsKEY}&units=M&city=${trip.city},${trip.country}`);
     const response = await fetch(`${url}&key=${weatherbitsKEY}&units=M&city=${trip.city},${trip.country}`);
     try {
         const data = await response.json();
         
         if (trip.diffDays >= 0 && trip.diffDays < 16){
-            console.log("got >=0 < 16");
             trip.tempMin = data.data[trip.diffDays].low_temp;
             trip.tempMax = data.data[trip.diffDays].high_temp;
-            console.log("Min: "+ trip.tempMin + "Max: " + trip.tempMax);
             trip.icon = data.data[trip.diffDays].weather.icon;
             trip.weatherDescription = data.data[trip.diffDays].weather.description
-            console.log("icon "+trip.icon + "decr " + trip.weatherDescription);
             }
         else {
             trip.tempMin = data.data[0].min_temp;
-            trip.tempMax = data.data[0].max_temp;
-            console.log("Min: "+ trip.tempMin + "Max: " + trip.tempMax);
-           
+            trip.tempMax = data.data[0].max_temp;           
         }
 
     } catch (error) {
@@ -83,16 +91,6 @@ const getWeather = async (weatherbitsKEY, url) => {
     }
 }
 
-
-
-// ENDPOINTS
-
-// endpoint to get main page
-app.get('/', function (req, res) {
-    // res.sendfile("server is running")
-    res.sendFile('dist/index.html')
-    // res.sendFile(path.resolve('src/client/views/index.html'))
-})
 
 // function that calculates number of days between today and departure date and generates message
 function departureInfo(date) {
@@ -110,7 +108,6 @@ function departureInfo(date) {
     if (diffDaysManual == 0 && diffYears == 0 && diffMonths == 0){
         trip.departureInfo = `Departure is today ${departure.getDate()}.${(departure.getMonth() + 1)}.${departure.getFullYear()}`;
         trip.diffDays = 0;
-        trip.diff = 0;
     }
     else if (diffDaysManual == -1 && diffYears == 0 && diffMonths == 0){
         trip.departureInfo = `Departure was yesterday ${departure.getDate()}.${(departure.getMonth() + 1)}.${departure.getFullYear()}`;
@@ -128,43 +125,54 @@ function departureInfo(date) {
     }
 }
 
+// ENDPOINTS
+
+// endpoint to get main page
+app.get('/', function (req, res) {
+    // res.sendfile("server is running")
+    res.sendFile('dist/index.html')
+    // res.sendFile(path.resolve('src/client/views/index.html'))
+})
+
+
+function getWeatherbitURL(diffDays, userInputDate){
+    // change date format for YY MM DD data extraction
+    const departure = new Date(userInputDate);
+    
+    let url = "";
+    // for past dates use received date
+    if (diffDays < 0 ){
+        let startDate = `${departure.getFullYear()}-${departure.getMonth() + 1}-${departure.getDate()}`;
+        let endDate =  `${departure.getFullYear()}-${departure.getMonth() + 1}-${departure.getDate() + 1}`;
+        url = `http://api.weatherbit.io/v2.0/history/daily?start_date=${startDate}&end_date=${endDate}`;
+    }
+    // for future dates use historical values for 2019
+    else if (diffDays > 15){
+        let startDate = `2019-${departure.getMonth() + 1}-${departure.getDate()}`;
+        let endDate =  `2019-${departure.getMonth() + 1}-${departure.getDate() + 1}`;
+        url = `http://api.weatherbit.io/v2.0/history/daily?start_date=${startDate}&end_date=${endDate}`;
+    }
+    // for 16days forcast use different url (here we get icons)
+    else {
+        url = `http://api.weatherbit.io/v2.0/forecast/daily?`;
+    }
+    return url;
+}
+
 
 app.post('/trip', async(req, res) => {
+    // reset current trip
     trip = {};
     try {
-        const city = req.body.city;
-
-        const departureDate = req.body.departure;
-        departureInfo(departureDate);
-        const departure = new Date(departureDate);
-
-
-        let url = "";
+        trip.city = req.body.city;
+        let departureDate = req.body.departure;
         
-        console.log("trip diffDAYS : " + trip.diffDays);
-        if (trip.diffDays < 0 ){
-            console.log("<0")
-            console.log(`${departure.getFullYear()}-${departure.getMonth() + 1}-${departure.getDate()}`);
-            let startDate = `${departure.getFullYear()}-${departure.getMonth() + 1}-${departure.getDate()}`;
-            console.log("test");
-            let endDate =  `${departure.getFullYear()}-${departure.getMonth() + 1}-${departure.getDate() + 1}`;
-            url = `http://api.weatherbit.io/v2.0/history/daily?start_date=${startDate}&end_date=${endDate}`;
-            console.log("past", url);
-        }
-        else if (trip.diffDays > 15){
-            console.log(">15")
-            let startDate = `2019-${departure.getMonth() + 1}-${departure.getDate()}`;
-            let endDate =  `2019-${departure.getMonth() + 1}-${departure.getDate() + 1}`;
-            url = `http://api.weatherbit.io/v2.0/history/daily?start_date=${startDate}&end_date=${endDate}`;
-            console.log("> 15 url", url);
-        }
-        else {
-            console.log("else")
-            url = `http://api.weatherbit.io/v2.0/forecast/daily?`;
-        }
-       
+        // function that updates trip.diffDays (days to the trip) and trip.message (to updat UI with)
+        departureInfo(departureDate);
 
-        trip.city = city;
+        // get base URL for Weaterbit API request
+        let url = getWeatherbitURL(trip.diffDays, departureDate);
+        
         await getImage(process.env.API_KEY_PIXABAY);
         await getCountry(process.env.API_KEY_GEONAMES);
         await getWeather(process.env.API_KEY_WEATHERBIT, url);
