@@ -1,4 +1,4 @@
-# UDACITY - Travel App App
+# UDACITY - Travel Planner App
 This project is a part of [Udacity](https://www.udacity.com/) Front End Developer Nanodegree program.
 
 ## Task
